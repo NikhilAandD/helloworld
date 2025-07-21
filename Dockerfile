@@ -1,3 +1,5 @@
 FROM openjdk:21-jdk
 MAINTAINER vijay
-COPY target/helloworld-1.5.jar /home/helloworld-1.5.jar
+WORKDIR /home
+COPY target/helloworld-1.92.jar /home/app.jar
+CMD ["java", "-jar", "app.jar"]
