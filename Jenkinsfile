@@ -1,17 +1,13 @@
-node {
+node{
     def mavenHome = tool name: 'maven'
-    stage('checkout') {
-        // Checkout raw code from SCM (Git)
-        git credentialsId: 'git', url: 'https://github.com/viewvijay22/helloworld.git'
-    }
-    stage('Build') {
-        sh "$mavenHome/bin/mvn clean install"
-    }
-    stage('sonarqubeanalysis') {
-        sh "$mavenHome/bin/mvn sonar:sonar"
-    }
-    stage('nexusstage') {
-        sh "$mavenHome/bin/mvn deploy"
-    }
+    stage ('code checkout')
+            {
+                git credentialsId: 'github-pat', url: 'https://github.com/NikhilAandD/helloworld.git'
+            }
+    stage ( 'maven build' )
+       sh "$mavenHome/bin/mvn clean install"
+    stage ( 'codequalityanalysis' )
+       sh "$mavenHome/bin/mvn sonar:sonar"
+    stage ( 'nexus artifactory upload' )
+       sh "$mavenHome/bin/mvn deploy"   
 }
-
